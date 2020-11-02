@@ -44,9 +44,7 @@ import java.awt.event.MouseEvent;
 public class ManagementSystem extends JFrame {
 
 	private JFrame jFrame = new JFrame();
-//	private Vector<Vector<Object>> userinfo;//
 	private String[][] userdata = {}; //vector
-//	private Vector<String> columnNameVector = new Vector<String>() //;
 	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
 	private String[] job = { "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
@@ -103,22 +101,18 @@ public class ManagementSystem extends JFrame {
 		filemenu.add(save);filemenu.add(open); filemenu.add(close); //파일 메뉴 안에 표시될 요소들 '저장', '열기', '닫기'
 		
 		numberChkMenuItem = new JCheckBoxMenuItem("Number");// 정렬 메뉴의 Number 
-		numberChkMenuItem.addActionListener(new SortFunction(userdata, 0) {});// 사용자의 번호를 기준으로 정렬 
 		buttonGroupForAlignMenu.add(numberChkMenuItem);
 		alignmenu.add(numberChkMenuItem);
 		
 		nameChkMenuItem = new JCheckBoxMenuItem("Name"); // 정렬 메뉴의 Name
-		nameChkMenuItem.addActionListener(new SortFunction(userdata, 1) {}); //사용자의 이름을 기준으로 정렬
 		buttonGroupForAlignMenu.add(nameChkMenuItem);
 		alignmenu.add(nameChkMenuItem);
 		
 		jobChkMenuItem = new JCheckBoxMenuItem("Job"); //정렬 메뉴의 job
-		jobChkMenuItem.addActionListener(new SortFunction(userdata, 5) {}); // 사용자의 직업을 기준으로 정렬
 		buttonGroupForAlignMenu.add(jobChkMenuItem);
 		alignmenu.add(jobChkMenuItem);
 		
 		locationChkItem = new JCheckBoxMenuItem("Location"); //정렬 메뉴의 Location
-		locationChkItem.addActionListener(new SortFunction(userdata, 8) {}); // 사용자의 출신지역을 기준으로 정렬
 		buttonGroupForAlignMenu.add(locationChkItem);
 		alignmenu.add(locationChkItem);
 		
@@ -285,8 +279,6 @@ public class ManagementSystem extends JFrame {
 		jobTextField.setText(jobComboBox.getSelectedItem().toString());
 		
 		addBtn = new JButton("ADD");
-		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, 
-		emailTextField, idNumberTextField, jobTextField) {}); 
 		btnpanel.add(addBtn);
 		
 		deleteBtn = new JButton("DELETE");
@@ -311,7 +303,6 @@ public class ManagementSystem extends JFrame {
 		editBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedRow = table.getSelectedRow();
-				EditFunction.UpdateData(table,nameTextField.getText(), telTextField.getText(), emailTextField.getText(), selectedRow);
 				numberTextField.setEnabled(true);
 				idNumberTextField.setEnabled(true);
 				nameTextField.setText("");
@@ -328,7 +319,6 @@ public class ManagementSystem extends JFrame {
 		
 		open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OpenFileFunction.OpenFile(jFrame, table);
 			}
 		});
 		
