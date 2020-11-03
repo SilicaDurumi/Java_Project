@@ -4,16 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Vector;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -186,6 +182,14 @@ public class ManagementSystem extends JFrame {
 		inputpanel.add(jobLabel);
 		
 		JComboBox jobComboBox = new JComboBox();
+<<<<<<< HEAD
+=======
+		jobComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jobTextField.setText(jobComboBox.getSelectedItem().toString());	
+			}
+		});
+>>>>>>> parent of 6b4cf4d... Functions Complete
 		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
 		
@@ -294,8 +298,15 @@ public class ManagementSystem extends JFrame {
 		editBtn = new JButton("EDIT");
 		btnpanel.add(editBtn);
 		
+<<<<<<< HEAD
 		searchBtn = new JButton("SEARCH");
 		btnpanel.add(searchBtn);
+=======
+		searchBtnBottom = new JButton("SEARCH");
+		btnpanel.add(searchBtnBottom);
+		
+		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
+>>>>>>> parent of 6b4cf4d... Functions Complete
 		
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.exit(0);} });
