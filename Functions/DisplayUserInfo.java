@@ -25,6 +25,7 @@ public class DisplayUserInfo {
 		genderTextArea.setText((String) model.getValueAt(SelectedRow,7));
 		locationTextArea.setText((String) model.getValueAt(SelectedRow,8));
 		birthTextArea.setText((String) model.getValueAt(SelectedRow,9));
+<<<<<<< HEAD
 	}
 }
 =======
@@ -54,6 +55,8 @@ public class DisplayUserInfo {
 		genderTextArea.setText((String) model.getValueAt(SelectedRow,7));
 		locationTextArea.setText((String) model.getValueAt(SelectedRow,8));
 		birthTextArea.setText((String) model.getValueAt(SelectedRow,9));
+=======
+>>>>>>> parent of 6b4cf4d... Functions Complete
 	}
 }
 >>>>>>> parent of 264e4e7... Merge branch 'KYS' of https://github.com/SilicaDurumi/Java_Project into KYS

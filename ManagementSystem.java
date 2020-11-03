@@ -1,4 +1,6 @@
 import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +14,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -45,9 +45,11 @@ public class ManagementSystem extends JFrame {
 
 	private JFrame jFrame = new JFrame();
 	private String[][] userdata = {}; //vector
+	private Vector<Vector<String>> userdataVector = new Vector<Vector<String>>();
+	private Vector<String> userdatatitle = new Vector<String>();
 	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
-	private String[] job = { "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
+	private String[] job = {"", "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
 	private JPanel contentPane, westpanel, inputpanel, card, personinfo, searchpanel, radiopanel, searchtextpanel, panel, searchbtnpanel, btnpanel;
 	private JLabel lblNumber, lblName, lblTel, lblEmail, lblIdnumber, jobLabel, ageLabel, genderLabel, locationLabel, birthLabel;
 	private JTextField numberTextField, nameTextField, telTextField, emailTextField, idNumberTextField, jobTextField, searchtext;
@@ -60,7 +62,7 @@ public class ManagementSystem extends JFrame {
 	private JMenuItem printinfo = new JMenuItem("INFO");
 	private final ButtonGroup buttonGroupForRadio = new ButtonGroup();
 	private final ButtonGroup buttonGroupForAlignMenu = new ButtonGroup();
-	private JButton searchbtn, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtn;
+	private JButton searchBtnBottom, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtn;
 	private JRadioButton nameRadioBtn, jobRadioBtn, locationRadioBtn;
 	private JScrollPane tablescrollpanel;
 	private int i, selectedRow;
@@ -186,6 +188,11 @@ public class ManagementSystem extends JFrame {
 		inputpanel.add(jobLabel);
 		
 		JComboBox jobComboBox = new JComboBox();
+		jobComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jobTextField.setText(jobComboBox.getSelectedItem().toString());	
+			}
+		});
 		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
 		
@@ -294,8 +301,10 @@ public class ManagementSystem extends JFrame {
 		editBtn = new JButton("EDIT");
 		btnpanel.add(editBtn);
 		
-		searchBtn = new JButton("SEARCH");
-		btnpanel.add(searchBtn);
+		searchBtnBottom = new JButton("SEARCH");
+		btnpanel.add(searchBtnBottom);
+		
+		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
 		
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.exit(0);} });
@@ -341,16 +350,8 @@ public class ManagementSystem extends JFrame {
 				}});
 		
 	}
-	public void SortUser(Object[][] arr, int sortby) {
-		Arrays.sort(arr, new Comparator<Object[]>() {
-			@Override
-			public int compare(Object[] o1, Object[] o2) {
-				if (((Comparable) o1[sortby]).compareTo(o2[sortby]) > 0)
-					return 1;
-				else
-					return -1;
-			}
-		});
-	}
+
 
 }
+
+

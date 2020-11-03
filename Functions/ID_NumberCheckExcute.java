@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+<<<<<<< HEAD
 public class ID_NumberCheckExcute {
 	
 	public static int i, key, last, k, inputchk;
@@ -92,6 +93,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+=======
+>>>>>>> parent of 6b4cf4d... Functions Complete
 public class ID_NumberCheckExcute {
 	
 	public static int i, key, last, k, inputchk;

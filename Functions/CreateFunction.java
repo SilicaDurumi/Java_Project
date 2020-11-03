@@ -11,9 +11,14 @@ import javax.swing.table.DefaultTableModel;
 public class CreateFunction implements ActionListener{
 	JTable table;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	JTextField[] userdata = new JTextField[10];
 	
+=======
+	JTextField[] userdata = new JTextField[10];
+	
+>>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 	JTextField[] userdata = new JTextField[10];
 	
@@ -59,6 +64,9 @@ public class CreateFunction implements ActionListener{
 =======
 				userdata[0].requestFocus();
 				
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 		}
 		else {

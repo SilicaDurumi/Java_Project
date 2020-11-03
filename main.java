@@ -26,9 +26,12 @@ public class main extends JFrame{
 			}else
 				JOptionPane.showMessageDialog(null, "Wrong PassWord\n Click the Confirm Button", "Error", JOptionPane.ERROR_MESSAGE);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		}
 	}
 =======
+=======
+>>>>>>> parent of 6b4cf4d... Functions Complete
 		}	
 }
 >>>>>>> parent of 6b4cf4d... Functions Complete
