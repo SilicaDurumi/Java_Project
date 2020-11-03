@@ -10,3 +10,6 @@
 /ManagementSystem$7.class
 /ManagementSystem$8.class
 /ManagementSystem$9.class
+.project
+.classpath
+*.prefs
