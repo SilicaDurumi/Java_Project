@@ -56,7 +56,7 @@ public class ManagementSystem extends JFrame {
 	private JMenuItem printinfo = new JMenuItem("INFO");
 	private final ButtonGroup buttonGroupForRadio = new ButtonGroup();
 	private final ButtonGroup buttonGroupForAlignMenu = new ButtonGroup();
-	private JButton searchbtn, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtn;
+	private JButton searchBtnBottom, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtn;
 	private JRadioButton nameRadioBtn, jobRadioBtn, locationRadioBtn;
 	private JScrollPane tablescrollpanel;
 	private int i, selectedRow;
@@ -66,7 +66,7 @@ public class ManagementSystem extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void manageSystemMain() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -182,20 +182,11 @@ public class ManagementSystem extends JFrame {
 		inputpanel.add(jobLabel);
 		
 		JComboBox jobComboBox = new JComboBox();
-<<<<<<< HEAD
-=======
 		jobComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jobTextField.setText(jobComboBox.getSelectedItem().toString());	
 			}
 		});
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 6b4cf4d... Functions Complete
-=======
->>>>>>> parent of 6b4cf4d... Functions Complete
-=======
->>>>>>> parent of 6b4cf4d... Functions Complete
 		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
 		
@@ -304,21 +295,12 @@ public class ManagementSystem extends JFrame {
 		editBtn = new JButton("EDIT");
 		btnpanel.add(editBtn);
 		
-<<<<<<< HEAD
 		searchBtn = new JButton("SEARCH");
 		btnpanel.add(searchBtn);
-=======
 		searchBtnBottom = new JButton("SEARCH");
 		btnpanel.add(searchBtnBottom);
 		
 		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 6b4cf4d... Functions Complete
-=======
->>>>>>> parent of 6b4cf4d... Functions Complete
-=======
->>>>>>> parent of 6b4cf4d... Functions Complete
 		
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.exit(0);} });
