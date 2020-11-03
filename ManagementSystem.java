@@ -70,7 +70,8 @@ public class ManagementSystem extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void manageSystemmain() {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -344,4 +345,4 @@ public class ManagementSystem extends JFrame {
 
 	}
 
-}
+

@@ -19,9 +19,8 @@ public class main extends JFrame{
 				break OUTTER;
 			 else if (password.equals(passwd)) {
 					try {
-						ManagementSystem frame = new ManagementSystem();
-						frame.setVisible(true);
-						} catch (Exception e) {
+						ManagementSystem.manageSystemmain();	
+					} catch (Exception e) {
 							e.printStackTrace();
 					}
 				 break OUTTER;
