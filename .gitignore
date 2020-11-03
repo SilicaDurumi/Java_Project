@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /ManagementSystem$1.class
 /ManagementSystem$2.class
 /ManagementSystem.class
@@ -14,6 +15,20 @@
 /.classpath
 /.project
 /bin/
+=======
+/ManagementSystem$1.class
+/ManagementSystem$2.class
+/ManagementSystem.class
+/main.class
+/ManagementSystem$10.class
+/ManagementSystem$3.class
+/ManagementSystem$4.class
+/ManagementSystem$5.class
+/ManagementSystem$6.class
+/ManagementSystem$7.class
+/ManagementSystem$8.class
+/ManagementSystem$9.class
+>>>>>>> parent of 264e4e7... Merge branch 'KYS' of https://github.com/SilicaDurumi/Java_Project into KYS
 =======
 /ManagementSystem$1.class
 /ManagementSystem$2.class
