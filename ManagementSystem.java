@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Vector;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
@@ -31,6 +35,8 @@ import Functions.*;
 import javax.swing.JTextArea;
 import javax.swing.JMenu;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -41,7 +47,7 @@ public class ManagementSystem extends JFrame {
 	private String[][] userdata = {}; //vector
 	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
-	private String[] job = {"", "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
+	private String[] job = { "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
 	private JPanel contentPane, westpanel, inputpanel, card, personinfo, searchpanel, radiopanel, searchtextpanel, panel, searchbtnpanel, btnpanel;
 	private JLabel lblNumber, lblName, lblTel, lblEmail, lblIdnumber, jobLabel, ageLabel, genderLabel, locationLabel, birthLabel;
 	private JTextField numberTextField, nameTextField, telTextField, emailTextField, idNumberTextField, jobTextField, searchtext;
@@ -54,7 +60,7 @@ public class ManagementSystem extends JFrame {
 	private JMenuItem printinfo = new JMenuItem("INFO");
 	private final ButtonGroup buttonGroupForRadio = new ButtonGroup();
 	private final ButtonGroup buttonGroupForAlignMenu = new ButtonGroup();
-	private JButton searchBtnCard, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtnBottom;
+	private JButton searchbtn, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtn;
 	private JRadioButton nameRadioBtn, jobRadioBtn, locationRadioBtn;
 	private JScrollPane tablescrollpanel;
 	private int i, selectedRow;
@@ -64,7 +70,7 @@ public class ManagementSystem extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void manageSystemMain() {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -180,11 +186,6 @@ public class ManagementSystem extends JFrame {
 		inputpanel.add(jobLabel);
 		
 		JComboBox jobComboBox = new JComboBox();
-		jobComboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				jobTextField.setText(jobComboBox.getSelectedItem().toString());	
-			}
-		});
 		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
 		
@@ -257,8 +258,8 @@ public class ManagementSystem extends JFrame {
 		searchbtnpanel = new JPanel();
 		searchtextpanel.add(searchbtnpanel, BorderLayout.CENTER);
 		
-		searchBtnCard = new JButton("Search");
-		searchbtnpanel.add(searchBtnCard);
+		searchBtn = new JButton("Search");
+		searchbtnpanel.add(searchBtn);
 		
 		exitBtn = new JButton("Exit");
 		searchbtnpanel.add(exitBtn);
@@ -293,10 +294,8 @@ public class ManagementSystem extends JFrame {
 		editBtn = new JButton("EDIT");
 		btnpanel.add(editBtn);
 		
-		searchBtnBottom = new JButton("SEARCH");
-		btnpanel.add(searchBtnBottom);
-		
-		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
+		searchBtn = new JButton("SEARCH");
+		btnpanel.add(searchBtn);
 		
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {System.exit(0);} });
@@ -330,7 +329,7 @@ public class ManagementSystem extends JFrame {
 			}
 		});
 		
-		searchBtnBottom.addActionListener(new ActionListener() {// 하단의 검색 버튼 클릭시 input 카드 레이아웃에서 검색 카드 레이아웃으로 변환
+		searchBtn.addActionListener(new ActionListener() {// 하단의 검색 버튼 클릭시 input 카드 레이아웃에서 검색 카드 레이아웃으로 변환
 		public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout)(card.getLayout());
 		        cl.next(card);}});
