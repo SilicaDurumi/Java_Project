@@ -295,8 +295,6 @@ public class ManagementSystem extends JFrame {
 		editBtn = new JButton("EDIT");
 		btnpanel.add(editBtn);
 		
-		searchBtn = new JButton("SEARCH");
-		btnpanel.add(searchBtn);
 		searchBtnBottom = new JButton("SEARCH");
 		btnpanel.add(searchBtnBottom);
 		
