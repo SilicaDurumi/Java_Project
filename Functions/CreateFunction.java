@@ -10,9 +10,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class CreateFunction implements ActionListener{
 	JTable table;
+<<<<<<< HEAD
 	
 	JTextField[] userdata = new JTextField[10];
 	
+=======
+	JTextField[] userdata = new JTextField[10];
+	
+>>>>>>> parent of 6b4cf4d... Functions Complete
 	public CreateFunction(JTable table, JTextField number, JTextField name, JTextField tel , JTextField email, JTextField idNumber, JTextField Job) {
 		this.table = table;
 		userdata[0] = number;
@@ -49,7 +54,12 @@ public class CreateFunction implements ActionListener{
 		
 			for (int j = 0; j < userinfo.length-4; j++) 
 				userdata[j].setText("");
+<<<<<<< HEAD
 			userdata[0].requestFocus();		
+=======
+				userdata[0].requestFocus();
+				
+>>>>>>> parent of 6b4cf4d... Functions Complete
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Invalid IDNumber Please Write Again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);

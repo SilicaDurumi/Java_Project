@@ -24,8 +24,13 @@ public class main extends JFrame{
 				 break OUTTER;
 			}else
 				JOptionPane.showMessageDialog(null, "Wrong PassWord\n Click the Confirm Button", "Error", JOptionPane.ERROR_MESSAGE);
+<<<<<<< HEAD
 		}
 	}
+=======
+		}	
+}
+>>>>>>> parent of 6b4cf4d... Functions Complete
 
 	public static void main(String[] args) {
 		main authMainExample = new main();
