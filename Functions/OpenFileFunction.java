@@ -18,9 +18,11 @@ public class OpenFileFunction {
 	    
 	    String path = openFile.getDirectory()+ openFile.getFile();
 	    try{
-	    	String str ="";
+	    	int count =0;
+	    	String strforcount ="";
+	    	String str = "";
 	    	Vector<String> userdataInput = new Vector<String>();
-	        BufferedReader buffread = new BufferedReader(new FileReader(path));
+	        BufferedReader buffread, reader;
 	        Vector<Vector<String>> userdata = new Vector<Vector<String>>();
 	        DefaultTableModel model = (DefaultTableModel) table.getModel();	      
 	        StringTokenizer stringTokenizer;
@@ -31,14 +33,31 @@ public class OpenFileFunction {
 		    model.removeRow(i);
 	        }
 	      
+	        userdata.setSize(model.getColumnCount());
+	        
+	        reader = new BufferedReader(new FileReader(path));
+	        while ((strforcount=reader.readLine())!= null) {
+	        	stringTokenizer = new StringTokenizer(strforcount);
+	        	if (stringTokenizer.nextToken("\n")!= null) {
+					count++;
+				}
+	        }
+	        reader.close();
+	        
+	        buffread = new BufferedReader(new FileReader(path));
+	        
 	        while ((str=buffread.readLine())!= null) {
 	        	stringTokenizer = new StringTokenizer(str);
-				for (int i = 0; i < model.getColumnCount(); i++) 
-					userdataInput.add(stringTokenizer.nextToken(" ### "));
-			userdata.add(userdataInput);
-			}
-	        
-	        
+	        		if (userdataInput.isEmpty()) {
+	        		userdataInput.setSize(model.getColumnCount());
+	        		}
+	        		for (int i = 0; i < model.getColumnCount(); i++) {
+						userdataInput.set(i,stringTokenizer.nextToken(" ### "));
+						userdata.set(i, userdataInput);
+	        		}
+	        		stringTokenizer.nextToken("\n");
+	        }
+			
 	       	model.addRow(userdata);
 	        buffread.close();
 	        String Filename = openFile.getFile();
