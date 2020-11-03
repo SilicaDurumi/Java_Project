@@ -190,6 +190,9 @@ public class ManagementSystem extends JFrame {
 			}
 		});
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete
@@ -310,6 +313,9 @@ public class ManagementSystem extends JFrame {
 		
 		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete

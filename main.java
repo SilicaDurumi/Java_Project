@@ -9,7 +9,10 @@ public class main extends JFrame{
 		OUTTER : while(true) {
 			ImageIcon icon = new ImageIcon("images/Food.JPG");
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
+=======
+>>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 			JOptionPane.showMessageDialog(null, null,"Customer Management System", JOptionPane.NO_OPTION, icon);
@@ -29,6 +32,9 @@ public class main extends JFrame{
 						ManagementSystem.manageSystemMain();
 					} catch (Exception e) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete
@@ -39,10 +45,13 @@ public class main extends JFrame{
 				JOptionPane.showMessageDialog(null, "Wrong PassWord\n Click the Confirm Button", "Error", JOptionPane.ERROR_MESSAGE);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
 		}
 	}
 =======
+=======
+>>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 		}	
