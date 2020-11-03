@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 public class SaveFileFunction {
-	public static void saveFile(JFrame frame,JTable table) {
+	public static void saveFile(JFrame frame,JTable table ) {
 		
 		FileDialog saveFile;
 		saveFile = new FileDialog(frame, "SAVE", FileDialog.SAVE);
