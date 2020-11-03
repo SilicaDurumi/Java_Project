@@ -341,16 +341,7 @@ public class ManagementSystem extends JFrame {
 				}});
 		
 	}
-	public void SortUser(Object[][] arr, int sortby) {
-		Arrays.sort(arr, new Comparator<Object[]>() {
-			@Override
-			public int compare(Object[] o1, Object[] o2) {
-				if (((Comparable) o1[sortby]).compareTo(o2[sortby]) > 0)
-					return 1;
-				else
-					return -1;
-			}
-		});
+
 	}
 
 }
