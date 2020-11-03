@@ -189,6 +189,9 @@ public class ManagementSystem extends JFrame {
 				jobTextField.setText(jobComboBox.getSelectedItem().toString());	
 			}
 		});
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
@@ -306,6 +309,9 @@ public class ManagementSystem extends JFrame {
 		btnpanel.add(searchBtnBottom);
 		
 		addBtn.addActionListener(new CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField) {});
+<<<<<<< HEAD
+>>>>>>> parent of 6b4cf4d... Functions Complete
+=======
 >>>>>>> parent of 6b4cf4d... Functions Complete
 		
 		close.addActionListener(new ActionListener() {
