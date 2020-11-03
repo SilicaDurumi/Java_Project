@@ -13,6 +13,7 @@
 /ManagementSystem$8.class
 /ManagementSystem$9.class
 /.classpath
+<<<<<<< HEAD
 /.project
 /bin/
 =======
@@ -43,3 +44,6 @@
 /ManagementSystem$8.class
 /ManagementSystem$9.class
 >>>>>>> parent of 264e4e7... Merge branch 'KYS' of https://github.com/SilicaDurumi/Java_Project into KYS
+=======
+/.project
+>>>>>>> parent of 7f37270... Main method edit

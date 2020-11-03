@@ -10,7 +10,9 @@ public class main extends JFrame{
 		
 		OUTTER : while(true) {
 			ImageIcon icon = new ImageIcon("images/Food.JPG");
+			
 			JOptionPane.showMessageDialog(null, null,"Customer Management System", JOptionPane.NO_OPTION, icon);
+			
 			String passwd = JOptionPane.showInputDialog("CM Service\n Write PassWord");
 			
 			String password = "manage1234";
@@ -19,13 +21,15 @@ public class main extends JFrame{
 				break OUTTER;
 			 else if (password.equals(passwd)) {
 					try {
-						ManagementSystem.manageSystemMain();
-					} catch (Exception e) {
+						ManagementSystem frame = new ManagementSystem();
+						frame.setVisible(true);
+						} catch (Exception e) {
 							e.printStackTrace();
 					}
 				 break OUTTER;
 			}else
 				JOptionPane.showMessageDialog(null, "Wrong PassWord\n Click the Confirm Button", "Error", JOptionPane.ERROR_MESSAGE);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		}
@@ -36,11 +40,17 @@ public class main extends JFrame{
 		}	
 }
 >>>>>>> parent of 6b4cf4d... Functions Complete
+=======
+			
+		}
+	}
+>>>>>>> parent of 7f37270... Main method edit
 
 	public static void main(String[] args) {
 		main authMainExample = new main();
 	}
 
+<<<<<<< HEAD
 }
 
 
@@ -176,6 +186,8 @@ public class main extends JFrame{
 		main authMainExample = new main();
 	}
 
+=======
+>>>>>>> parent of 7f37270... Main method edit
 }
 
 

@@ -12,6 +12,7 @@ public class CreateFunction implements ActionListener{
 	JTable table;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	JTextField[] userdata = new JTextField[10];
 	
@@ -24,13 +25,18 @@ public class CreateFunction implements ActionListener{
 	
 >>>>>>> parent of 6b4cf4d... Functions Complete
 	public CreateFunction(JTable table, JTextField number, JTextField name, JTextField tel , JTextField email, JTextField idNumber, JTextField Job) {
+=======
+	JTextField[] txt = new JTextField[10];
+	
+	public CreateFunction(JTable table, JTextField text1, JTextField text2, JTextField text3 , JTextField text4, JTextField text5, JTextField text6) {
+>>>>>>> parent of 7f37270... Main method edit
 		this.table = table;
-		userdata[0] = number;
-		userdata[1] = name;
-		userdata[2] = tel;
-		userdata[3] = email;
-		userdata[4] = idNumber;
-		userdata[5] = Job;
+		this.txt[0] = text1;
+		this.txt[1] = text2;
+		this.txt[2] = text3;
+		this.txt[3] = text4;
+		this.txt[4] = text5;
+		this.txt[5] = text6;
 	}
 	
 	@Override
@@ -39,7 +45,7 @@ public class CreateFunction implements ActionListener{
 		String[] userinfo = new String[10] ;
 		
 		for (int i = 0; i < userinfo.length-4; i++) 
-			userinfo[i] = this.userdata[i].getText();
+			userinfo[i] = this.txt[i].getText();
 		
 		for (int i = 0; i < userinfo.length-4; i++) {
 			if (userinfo[i].length()==0) 			
@@ -49,7 +55,7 @@ public class CreateFunction implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Please Write all information of the TextField", "Error", JOptionPane.ERROR_MESSAGE );
 			return ;
 		}
-		if (ID_NumberCheckExcute.UserIdNumberCheck(this.userdata[4].getText())) {
+		if (ID_NumberCheckExcute.UserIdNumberCheck(this.txt[4].getText())) {
 			userinfo[6] = ID_NumberCheckExcute.CheckNumberReturnAge(userinfo[4]);
 			userinfo[7] = ID_NumberCheckExcute.CheckNumberReturnGender(userinfo[4]);
 			userinfo[8] = ID_NumberCheckExcute.CheckNumberReturnLocation(userinfo[4]);
@@ -58,6 +64,7 @@ public class CreateFunction implements ActionListener{
 			model.addRow(userinfo);
 		
 			for (int j = 0; j < userinfo.length-4; j++) 
+<<<<<<< HEAD
 				userdata[j].setText("");
 <<<<<<< HEAD
 			userdata[0].requestFocus();		
@@ -68,6 +75,10 @@ public class CreateFunction implements ActionListener{
 >>>>>>> parent of 6b4cf4d... Functions Complete
 =======
 >>>>>>> parent of 6b4cf4d... Functions Complete
+=======
+				txt[j].setText("");
+				txt[0].requestFocus();
+>>>>>>> parent of 7f37270... Main method edit
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "Invalid IDNumber Please Write Again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);
