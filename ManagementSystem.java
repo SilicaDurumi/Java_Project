@@ -18,19 +18,22 @@ import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Frame;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-
-import org.w3c.dom.UserDataHandler;
+import javax.swing.table.TableCellRenderer;
 
 import Functions.*;
 
@@ -68,6 +71,7 @@ public class ManagementSystem extends JFrame {
 	private int i, selectedRow;
 	private DefaultTableModel model;
 	private JCheckBoxMenuItem numberChkMenuItem, nameChkMenuItem, jobChkMenuItem, locationChkItem;
+	private TableCellRenderer renderer;
 
 	/**
 	 * Launch the application.
@@ -206,24 +210,28 @@ public class ManagementSystem extends JFrame {
 		personinfo.setLayout(new GridLayout(0, 2, 0, 25));
 		
 		ageLabel = new JLabel("Age : ");
+		ageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		personinfo.add(ageLabel);
 		
 		ageTextArea = new JTextArea();
 		personinfo.add(ageTextArea);
 		
 		genderLabel = new JLabel("Gender : ");
+		genderLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		personinfo.add(genderLabel);
 		
 		genderTextArea = new JTextArea();
 		personinfo.add(genderTextArea);
 		
 		locationLabel = new JLabel("Location : ");
+		locationLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		personinfo.add(locationLabel);
 		
 		locationTextArea = new JTextArea();
 		personinfo.add(locationTextArea);
 		
 		birthLabel = new JLabel("Birth : ");
+		birthLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		personinfo.add(birthLabel);
 		
 		birthTextArea = new JTextArea();
@@ -265,6 +273,7 @@ public class ManagementSystem extends JFrame {
 		searchtextpanel.add(searchbtnpanel, BorderLayout.CENTER);
 		
 		searchBtnCard = new JButton("Search");
+		
 		searchbtnpanel.add(searchBtnCard);
 		
 		exitBtn = new JButton("Exit");
@@ -305,27 +314,28 @@ public class ManagementSystem extends JFrame {
 		numberChkMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				Collections.sort(userdataVector, new Comparator<userdataVector.get(0)>() {} );
+//				Collections.sort((Comparable)userdataVector.get(0));
 				showTable();
 			}
 		});
 		
 		nameChkMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Collections.sort(userdataVector, ((Comparator)userdataVector.get(1)));
+//				userdataVector.sort();
 				showTable();
 			}
 		});
 		
 		jobChkMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Collections.sort(userdataVector, ((Comparator)userdataVector.get(5)));
+//				userdataVector.sort();
 				showTable();
 			}
 		});
 		
 		locationChkItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Collections.sort(userdataVector, ((Comparator)userdataVector.get(8)));
+//				userdataVector.sort();
 				showTable();
 			}
 		});
@@ -334,6 +344,7 @@ public class ManagementSystem extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				CreateFunction.CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField);
 				jobComboBox.setSelectedIndex(0);
+				System.out.println(userdataVector);
 			}
 		});
 		
@@ -376,7 +387,7 @@ public class ManagementSystem extends JFrame {
 				CardLayout cl = (CardLayout)(card.getLayout());
 		        cl.next(card);}});
 		
-		tablescrollpanel.addMouseListener(new MouseAdapter() {
+		tablescrollpanel.addMouseListener(new MouseAdapter() { // Disable Selected Row
 			public void mousePressed(MouseEvent e) {
 				selectedRow = table.getSelectedRow(); 
 				table.clearSelection();
@@ -389,27 +400,25 @@ public class ManagementSystem extends JFrame {
 				System.out.println("Selected Row : "+selectedRow);
 			}
 		});
-		
 		previousBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedRow == -1) 
-					selectedRow = 0;
+				if (selectedRow <= 0) 
+					selectedRow = table.getRowCount()-1;
+				else if(selectedRow == -1)
+					selectedRow=0;
 				else
 					selectedRow--;
 				
-				System.out.println("Selected Row : "+selectedRow);
 				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
 			}
 		});
-		
 		nextBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(selectedRow==-1)
+				selectedRow ++;	
+				if (selectedRow==table.getRowCount()) 
 					selectedRow = 0;
-				else
-					selectedRow ++;
-				
-				System.out.println("Selected Row : "+selectedRow);
+				else if(selectedRow<0)
+					selectedRow =0;
 				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
 			}
 		});
@@ -425,18 +434,68 @@ public class ManagementSystem extends JFrame {
 				selectedRow = table.getSelectedRow();
 				System.out.println("Selected Row : "+selectedRow);
 				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				
+//				TableCellRenderer renderer = new MyTableCellRenderer();
+//				try {
+//					table.setDefaultRenderer(Class.forName("java.lang.Object"), renderer);
+//				} catch (ClassNotFoundException e1) {e1.printStackTrace();}
 		}});
 		
 		searchBtnCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (nameRadioBtn.isSelected())
-					SearchFunction.SearchData(table, searchtext, 1);// By Name
-				else if (jobRadioBtn.isSelected())
-					SearchFunction.SearchData(table, searchtext, 5);// By Job
-				else if (locationRadioBtn.isSelected()) 
-					SearchFunction.SearchData(table, searchtext, 8);// By Location
-				else
+											
+				if ((searchtext.getText().length())==0) {
+					JOptionPane.showMessageDialog(null, "Plsase Write the Data of TextField","Error",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (nameRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 1))) 
+							selectedRow = i;
+					}
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
+				
+				else if (jobRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 5))) 
+							selectedRow = i;
+					}
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
+				
+				else if (locationRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 8))) 
+							selectedRow = i;
+					}
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
+//				if (nameRadioBtn.isSelected()) {
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),1);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//				}
+//				else if (jobRadioBtn.isSelected()) { // 5
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),5);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//			}
+//				else if (locationRadioBtn.isSelected()) {// 8 
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),8);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//			}
+				else {
 					JOptionPane.showMessageDialog(null, "Please Selected the Radio Data", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 			}
 		});
 }

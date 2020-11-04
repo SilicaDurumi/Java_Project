@@ -6,31 +6,27 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Vector;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 
 public class SortFunction implements ActionListener {
 	Vector<Vector<String>> userdataVector;
 	int sortby;
+	JTable table;
 	
-	public SortFunction(Vector<Vector<String>> userdata, int i) {
+	public SortFunction(JTable table,Vector<Vector<String>> userdata, int i) {
 		this.userdataVector = userdata;
+		this.table = table;
 		sortby = i;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Arrays.sort(userdataVector,  new Comparator<Object[]>() {
-			@Override
-			public int compare(Object[] o1, Object[] o2) {//	 If user Click the Title; Column Sort Execute : change o1 [0], o2[0] => o1 [i], o2[i]
-				if (((Comparable)o1[sortby]).compareTo(o2[sortby])>0)
-					return 1;
-				else
-					return -1;
-			}
-		
-		});
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		userdataVector.sort();
+		model.setDataVector(userdataVector, userdataVector.get(0));
 	}
-//	showClass.table.getmodel();
-	
 }
 
 

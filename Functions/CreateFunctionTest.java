@@ -8,57 +8,55 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class CreateFunctionTest implements ActionListener{
+public class CreateFunction implements ActionListener{
 	JTable table;
-	JTextField txt1, txt2, txt3;
+	JTextField[] userdata = new JTextField[10];
 	
-	public CreateFunctionTest(JTable table, JTextField text1, JTextField text2, JTextField text3) {
+	public CreateFunction(JTable table, JTextField number, JTextField name, JTextField tel , JTextField email, JTextField idNumber, JTextField Job) {
 		this.table = table;
-		txt1 = text1;
-		txt2 = text2;
-		txt3 = text3;
+		userdata[0] = number;
+		userdata[1] = name;
+		userdata[2] = tel;
+		userdata[3] = email;
+		userdata[4] = idNumber;
+		userdata[5] = Job;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String [] userinfo = new String[3];
-		String inputname = txt1.getText();
-		String inputage = txt2.getText();
-		String inputgender = txt2.getText();
+		boolean FLAG = false;
+		String[] userinfo = new String[10] ;
 		
+		for (int i = 0; i < userinfo.length-4; i++) 
+			userinfo[i] = this.userdata[i].getText();
 		
-		if (inputname.length() == 0 || inputage.length() == 0|| inputgender.length() == 0) {
-			JOptionPane.showMessageDialog(null, "Please Fill all Information of the TextField", "Error", JOptionPane.ERROR_MESSAGE);
+		for (int i = 0; i < userinfo.length-4; i++) {
+			if (userinfo[i].length()==0) 			
+				FLAG = true;
+		}
+		if (FLAG) {
+			JOptionPane.showMessageDialog(null, "Please Write all information of the TextField", "Error", JOptionPane.ERROR_MESSAGE );
+			return ;
+		}
+		if (ID_NumberCheckExcute.UserIdNumberCheck(this.userdata[4].getText())) {
+			userinfo[6] = ID_NumberCheckExcute.CheckNumberReturnAge(userinfo[4]);
+			userinfo[7] = ID_NumberCheckExcute.CheckNumberReturnGender(userinfo[4]);
+			userinfo[8] = ID_NumberCheckExcute.CheckNumberReturnLocation(userinfo[4]);
+			userinfo[9] = ID_NumberCheckExcute.CheckNumberReturnBirth(userinfo[4]);
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.addRow(userinfo);
+		
+			for (int j = 0; j < userinfo.length-4; j++) 
+				userdata[j].setText("");
+				userdata[0].requestFocus();
+				
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Invalid IDNumber Please Write Again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
-		userinfo[0] = inputname;
-		userinfo[1] = inputage;
-		userinfo[2] = inputgender;
-				
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.addRow(userinfo);
-		
-		txt1.setText(null);
-		txt2.setText(null);
-		txt3.setText(null);
-		
-		txt1.requestFocus();
-		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

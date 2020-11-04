@@ -10,7 +10,7 @@ public class DisplayUserInfo {
 	
 	public static void DisplayUser(JTable table, JTextField numberTextField, JTextField idNumberTextField,
 			JTextArea ageTextArea, JTextArea genderTextArea, JTextArea locationTextArea ,JTextArea birthTextArea, int SelectedRow) {
-		SelectedRow = table.getSelectedRow();
+		
 		if (SelectedRow == -1) {
 			JOptionPane.showMessageDialog(null, "Please Select The Data", "Error", JOptionPane.ERROR_MESSAGE);
 			return;

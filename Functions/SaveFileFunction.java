@@ -19,10 +19,10 @@ public class SaveFileFunction {
 	    try {
 	       BufferedWriter buffwrite = new BufferedWriter(new FileWriter(path));
 	       
-	       for (int i = 0; i < table.getModel().getColumnCount(); i++) {
-	    	   for (int j = 0; j <= table.getModel().getRowCount()-1; j++)
-				 filename += table.getModel().getValueAt(j,i)+" ### ";   
-			filename += "\n";
+	       for (int j = 0; j < table.getModel().getRowCount(); j++) {
+	    	   for (int i = 0; i < table.getModel().getColumnCount(); i++) 
+	    		   filename += table.getModel().getValueAt(j,i)+" ### ";   
+	    	   filename += "\n";
 	       }
 	       
 	       buffwrite.write(filename); 
@@ -32,3 +32,26 @@ public class SaveFileFunction {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

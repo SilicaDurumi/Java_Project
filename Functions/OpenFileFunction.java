@@ -18,12 +18,12 @@ public class OpenFileFunction {
 	    
 	    String path = openFile.getDirectory()+ openFile.getFile();
 	    try{
-	    	int count =0;
+//	    	int count =0;
 	    	String strforcount ="";
 	    	String str = "";
 	    	String[][] userdataInput;
 	        BufferedReader buffread, reader;
-	        Vector<String[][]> userdata = new Vector<String[][]>();
+	        Vector<String[]> userdata = new Vector<String[]>();
 	        DefaultTableModel model = (DefaultTableModel) table.getModel();	      
 	        StringTokenizer stringTokenizer;
 	        
@@ -33,40 +33,41 @@ public class OpenFileFunction {
 		    model.removeRow(i);
 	        }
 	      
-	        reader = new BufferedReader(new FileReader(path));
-	        strforcount=reader.readLine();
-	        stringTokenizer = new StringTokenizer(strforcount);
-
-	        while (stringTokenizer.nextToken(" ### ")!=null) {
-	        		if (stringTokenizer.hasMoreElements()==false) 
-						break;
-	        		count++;
-				}
-	        	reader.close();
+//	        reader = new BufferedReader(new FileReader(path));
+//	        strforcount=reader.readLine();
+//	        stringTokenizer = new StringTokenizer(strforcount);
+//
+//	        while (strforcount!=null) {
+//	        	count++;
+//	        	stringTokenizer.nextToken("\n");
+//			}
+	        						
+	        		
+//	        	reader.close();
 	        
 	        buffread = new BufferedReader(new FileReader(path));
 	        
-	        userdataInput = new String[model.getColumnCount()][count+1];
+	        userdataInput = new String[50][model.getColumnCount()]; //need to change value '50'
 	        int j = 0;
 	        while ((str=buffread.readLine())!= null) {
 	        	stringTokenizer = new StringTokenizer(str);
 	        		
-	        		for (int i = 0; i <= count; i++) 
+	        		for (int i = 0; i <= model.getColumnCount(); i++) 
 						userdataInput[j][i]= stringTokenizer.nextToken(" ### ");
-	        		
+	        		stringTokenizer.nextToken("\n");
 	        		if (j>model.getColumnCount()) 
 						break;
-	        		
-						userdata.add(j, userdataInput);
-	        		
-	        		stringTokenizer.nextToken("\n");
 	        		j++;
 	        }
-			
+	       for (int i = 0; i < userdataInput.length; i++) 
+	    	   userdata.add(userdataInput[i]);
+	    	   
+	        System.out.println(userdata);
 	       	model.addRow(userdata);
 	        buffread.close();
 	        String Filename = openFile.getFile();
 	        frame.setTitle(Filename);
+	       
 	       } catch(Exception e1){System.out.println(e1.toString());}
 	}
 }
