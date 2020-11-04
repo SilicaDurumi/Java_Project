@@ -21,9 +21,9 @@ public class OpenFileFunction {
 	    	int count =0;
 	    	String strforcount ="";
 	    	String str = "";
-	    	Vector<String> userdataInput = new Vector<String>();
+	    	String[][] userdataInput;
 	        BufferedReader buffread, reader;
-	        Vector<Vector<String>> userdata = new Vector<Vector<String>>();
+	        Vector<String[][]> userdata = new Vector<String[][]>();
 	        DefaultTableModel model = (DefaultTableModel) table.getModel();	      
 	        StringTokenizer stringTokenizer;
 	        
@@ -33,29 +33,34 @@ public class OpenFileFunction {
 		    model.removeRow(i);
 	        }
 	      
-	        userdata.setSize(model.getColumnCount());
-	        
 	        reader = new BufferedReader(new FileReader(path));
-	        while ((strforcount=reader.readLine())!= null) {
-	        	stringTokenizer = new StringTokenizer(strforcount);
-	        	if (stringTokenizer.nextToken("\n")!= null) {
-					count++;
+	        strforcount=reader.readLine();
+	        stringTokenizer = new StringTokenizer(strforcount);
+
+	        while (stringTokenizer.nextToken(" ### ")!=null) {
+	        		if (stringTokenizer.hasMoreElements()==false) 
+						break;
+	        		count++;
 				}
-	        }
-	        reader.close();
+	        	reader.close();
 	        
 	        buffread = new BufferedReader(new FileReader(path));
 	        
+	        userdataInput = new String[model.getColumnCount()][count+1];
+	        int j = 0;
 	        while ((str=buffread.readLine())!= null) {
 	        	stringTokenizer = new StringTokenizer(str);
-	        		if (userdataInput.isEmpty()) {
-	        		userdataInput.setSize(model.getColumnCount());
-	        		}
-	        		for (int i = 0; i < model.getColumnCount(); i++) {
-						userdataInput.set(i,stringTokenizer.nextToken(" ### "));
-						userdata.set(i, userdataInput);
-	        		}
+	        		
+	        		for (int i = 0; i <= count; i++) 
+						userdataInput[j][i]= stringTokenizer.nextToken(" ### ");
+	        		
+	        		if (j>model.getColumnCount()) 
+						break;
+	        		
+						userdata.add(j, userdataInput);
+	        		
 	        		stringTokenizer.nextToken("\n");
+	        		j++;
 	        }
 			
 	       	model.addRow(userdata);

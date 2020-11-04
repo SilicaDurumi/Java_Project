@@ -24,5 +24,6 @@ public class DisplayUserInfo {
 		genderTextArea.setText((String) model.getValueAt(SelectedRow,7));
 		locationTextArea.setText((String) model.getValueAt(SelectedRow,8));
 		birthTextArea.setText((String) model.getValueAt(SelectedRow,9));
+		
 	}
 }

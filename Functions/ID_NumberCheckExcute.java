@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 public class ID_NumberCheckExcute {
 	
 	public static int i, key, last, k, inputchk;
@@ -19,10 +21,12 @@ public class ID_NumberCheckExcute {
 		idnumber = str.replace("-", "").substring(0,str.length()-1);//delete '-' from str(userinput) string and return the number
 		last = (str.charAt(str.length()-1))-48;
 		
-		for (i = 0; i < weight.length; i++) {
-			temp = idnumber.charAt(i);
-			checksum += (temp-48) * weight[i];
-		}
+		try {
+			for (i = 0; i < weight.length; i++) {
+				temp = idnumber.charAt(i);
+				checksum += (temp-48) * weight[i];
+			}
+		} catch (Exception e2) {}	
 		
 		key = (11-checksum % 11) % 10;
 		
