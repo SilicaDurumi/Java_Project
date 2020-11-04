@@ -22,6 +22,7 @@ import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.RowSorter;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -34,6 +35,8 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import Functions.*;
 
@@ -49,7 +52,8 @@ public class ManagementSystem extends JFrame {
 	private JFrame jFrame = new JFrame();
 	private Vector<Vector<String>> userdataVector = new Vector<Vector<String>>();
 	private Vector<String> userdatatitle = new Vector<String>();
-//	private String[][] userdataArray = {}; //vector
+	private String[][] userdataArray = {{"1", "abc"
+		}}; //vector
 	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
 	private String[] job = {"", "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
@@ -72,7 +76,7 @@ public class ManagementSystem extends JFrame {
 	private DefaultTableModel model;
 	private JCheckBoxMenuItem numberChkMenuItem, nameChkMenuItem, jobChkMenuItem, locationChkItem;
 	private TableCellRenderer renderer;
-
+	private RowSorter<TableModel> sorter;
 	/**
 	 * Launch the application.
 	 */
@@ -315,28 +319,28 @@ public class ManagementSystem extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 //				Collections.sort(userdataVector, new Comparator<userdataVector.get(0)>() {} );
 //				Collections.sort((Comparable)userdataVector.get(0));
-				showTable();
+				SortFunction(0);
 			}
 		});
 		
 		nameChkMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				userdataVector.sort();
-				showTable();
+				SortFunction(1);
 			}
 		});
 		
 		jobChkMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				userdataVector.sort();
-				showTable();
+				SortFunction(5);
 			}
 		});
 		
 		locationChkItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				userdataVector.sort();
-				showTable();
+				SortFunction(8);
 			}
 		});
 		
@@ -371,7 +375,7 @@ public class ManagementSystem extends JFrame {
 		
 		open.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OpenFileFunction.OpenFile(jFrame, table);
+				OpenFileFunction.OpenFile(jFrame, table, userdatatitle);
 			}
 		});
 		
@@ -506,6 +510,12 @@ public class ManagementSystem extends JFrame {
 			
 		model = new DefaultTableModel(userdataVector, userdatatitle); // Show Table
 		table = new JTable(userdataVector, userdatatitle); // Show Table
+	}
+	
+	public void SortFunction(int row) {
+		table.setAutoCreateRowSorter(true);
+		TableRowSorter tableRowSorter = new TableRowSorter(model);
+		table.setRowSorter(tableRowSorter);
 	}
 }
 
