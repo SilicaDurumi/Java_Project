@@ -67,6 +67,7 @@ public class ManagementSystem extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void manageSystemMain() {
 		EventQueue.invokeLater(new Runnable() {
 			
