@@ -9,9 +9,8 @@ import javax.swing.table.DefaultTableModel;
 public class CreateFunction{
 	
 	public static void CreateFunction(JTable table, JTextField number, JTextField name, JTextField tel , JTextField email, JTextField idNumber, JTextField Job) {
-		JTable tablesub;
+		
 		JTextField[] userdata = new JTextField[10];
-		tablesub = table;
 		userdata[0] = number;
 		userdata[1] = name;
 		userdata[2] = tel;
@@ -19,7 +18,7 @@ public class CreateFunction{
 		userdata[4] = idNumber;
 		userdata[5] = Job;
 
-		boolean FLAG = false;
+		boolean FLAG = false;// FLAG for user input all TextField
 		String[] userinfo = new String[10] ;
 		
 		for (int i = 0; i < userinfo.length-4; i++) 

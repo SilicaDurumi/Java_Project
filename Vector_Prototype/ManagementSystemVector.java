@@ -2,6 +2,9 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,12 +18,14 @@ import java.awt.GridLayout;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Frame;
 
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
@@ -28,6 +33,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import Functions.*;
 
@@ -38,14 +44,16 @@ import javax.swing.JCheckBoxMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ManagementSystem extends JFrame {
+public class ManagementSystemVector extends JFrame {
 
 	private JFrame jFrame = new JFrame();
-	private String[][] userdataArray = {}; //vector
+	private Vector<Vector<String>> userdataVector = new Vector<Vector<String>>();
+	private Vector<String> userdatatitle = new Vector<String>();
+//	private String[][] userdataArray = {}; //vector
 	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
 	private String[] job = {"", "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
-	private JPanel contentPane, westpanel, inputpanel, card, personinfo, searchpanel, radiopanel, searchtextpanel, searchTextPanel, searchbtnpanel, btnpanel;
+	private JPanel contentPane, westpanel, inputpanel, card, personinfo, searchpanel, radiopanel, searchtextpanel, panel, searchbtnpanel, btnpanel;
 	private JLabel lblNumber, lblName, lblTel, lblEmail, lblIdnumber, jobLabel, ageLabel, genderLabel, locationLabel, birthLabel;
 	private JTextField numberTextField, nameTextField, telTextField, emailTextField, idNumberTextField, jobTextField, searchtext;
 	private JTextArea ageTextArea, genderTextArea, locationTextArea, birthTextArea;
@@ -60,29 +68,29 @@ public class ManagementSystem extends JFrame {
 	private JButton searchBtnCard, exitBtn, addBtn, deleteBtn, previousBtn, nextBtn, editBtn, searchBtnBottom;
 	private JRadioButton nameRadioBtn, jobRadioBtn, locationRadioBtn;
 	private JScrollPane tablescrollpanel;
-	private int selectedRow;
+	private int i, selectedRow;
 	private DefaultTableModel model;
 	private JCheckBoxMenuItem numberChkMenuItem, nameChkMenuItem, jobChkMenuItem, locationChkItem;
+	private TableCellRenderer renderer;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void manageSystemMain() {
 		EventQueue.invokeLater(new Runnable() {
-			
 			public void run() {
 				try {
-					ManagementSystem frame = new ManagementSystem();
+					ManagementSystemVector frame = new ManagementSystemVector();
 					frame.jFrame.setVisible(true);
-				} catch (Exception e) {e.printStackTrace();}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			
 		});
 	}
 
-	public ManagementSystem() {
-	
-		//Layout Setting
+	public ManagementSystemVector() {
+		
 		jFrame.setFont(new Font("나눔바른고딕 UltraLight", Font.PLAIN, 12));
 		jFrame.setTitle("CardLayoutExample");
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,6 +105,8 @@ public class ManagementSystem extends JFrame {
 
 		menuBar.add(filemenu); menuBar.add(alignmenu); menuBar.add(helpmenu); //메뉴바에 표시될 요소 추가
 		filemenu.add(save);filemenu.add(open); filemenu.add(close); //파일 메뉴 안에 표시될 요소들 '저장', '열기', '닫기'
+		
+//		table.setRowSorter();
 		
 		numberChkMenuItem = new JCheckBoxMenuItem("Number");// 정렬 메뉴의 Number 
 		buttonGroupForAlignMenu.add(numberChkMenuItem);
@@ -116,8 +126,7 @@ public class ManagementSystem extends JFrame {
 		
 		helpmenu.add(printinfo);//help 메뉴의 printinfo
 		
-		model = new DefaultTableModel(userdataArray, columnNameStr); // Show Table
-		table = new JTable(userdataArray, columnNameStr); // Show Table
+		showTable(); // Show Table
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -183,7 +192,11 @@ public class ManagementSystem extends JFrame {
 		jobLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		inputpanel.add(jobLabel);
 		
-		JComboBox jobComboBox = new JComboBox(new DefaultComboBoxModel(job));
+		JComboBox jobComboBox = new JComboBox();
+		jobComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {jobTextField.setText(jobComboBox.getSelectedItem().toString());}
+			});
+		jobComboBox.setModel(new DefaultComboBoxModel(job));
 		inputpanel.add(jobComboBox);
 		
 		card = new JPanel();
@@ -249,11 +262,11 @@ public class ManagementSystem extends JFrame {
 		searchpanel.add(searchtextpanel);
 		searchtextpanel.setLayout(new BorderLayout(0, 0));
 		
-		searchTextPanel = new JPanel();
-		searchtextpanel.add(searchTextPanel, BorderLayout.NORTH);
+		panel = new JPanel();
+		searchtextpanel.add(panel, BorderLayout.NORTH);
 		
 		searchtext = new JTextField();
-		searchTextPanel.add(searchtext);
+		panel.add(searchtext);
 		searchtext.setColumns(15);
 		
 		searchbtnpanel = new JPanel();
@@ -283,6 +296,7 @@ public class ManagementSystem extends JFrame {
 		btnpanel.add(addBtn);
 		
 		deleteBtn = new JButton("DELETE");
+		deleteBtn.addActionListener(new RemoveFunction(table) {});
 		btnpanel.add(deleteBtn);
 		
 		previousBtn = new JButton("PREVIOUS");
@@ -297,202 +311,201 @@ public class ManagementSystem extends JFrame {
 		searchBtnBottom = new JButton("SEARCH");
 		btnpanel.add(searchBtnBottom);
 		
-		// ActionListener
+		numberChkMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				Collections.sort(userdataVector, new Comparator<userdataVector.get(0)>() {} );
+//				Collections.sort((Comparable)userdataVector.get(0));
+				showTable();
+			}
+		});
 		
-			//File menuItem ActionListener
-				save.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						SaveFileFunction.saveFile(jFrame, table);
+		nameChkMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				userdataVector.sort();
+				showTable();
+			}
+		});
+		
+		jobChkMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				userdataVector.sort();
+				showTable();
+			}
+		});
+		
+		locationChkItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				userdataVector.sort();
+				showTable();
+			}
+		});
+		
+		addBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CreateFunction.CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField);
+				jobComboBox.setSelectedIndex(0);
+				System.out.println(userdataVector);
+			}
+		});
+		
+		close.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {System.exit(0);} });
+		
+		editBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedRow = table.getSelectedRow();
+				EditFunction.UpdateData(table, nameTextField.getText(), telTextField.getText(), emailTextField.getText(), selectedRow);
+				numberTextField.setEnabled(true);
+				idNumberTextField.setEnabled(true);
+				nameTextField.setText("");
+				telTextField.setText("");
+				emailTextField.setText("");
+			}
+		});
+		
+		save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SaveFileFunction.saveFile(jFrame, table);
+			}
+		});
+		
+		open.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				OpenFileFunction.OpenFile(jFrame, table);
+			}
+		});
+		
+		exitBtn.addActionListener(new ActionListener() { // 검색 카드의 종료 버튼 클릭시 카드 레이아웃 전환
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout)(card.getLayout());
+		        cl.next(card);
+			}
+		});
+		
+		searchBtnBottom.addActionListener(new ActionListener() {// 하단의 검색 버튼 클릭시 input 카드 레이아웃에서 검색 카드 레이아웃으로 변환
+		public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout)(card.getLayout());
+		        cl.next(card);}});
+		
+		tablescrollpanel.addMouseListener(new MouseAdapter() { // Disable Selected Row
+			public void mousePressed(MouseEvent e) {
+				selectedRow = table.getSelectedRow(); 
+				table.clearSelection();
+				idNumberTextField.setEnabled(true);
+				numberTextField.setEnabled(true);
+				ageTextArea.setText("");
+				genderTextArea.setText("");
+				locationTextArea.setText("");
+				birthTextArea.setText("");
+				System.out.println("Selected Row : "+selectedRow);
+			}
+		});
+		previousBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (selectedRow <= 0) 
+					selectedRow = table.getRowCount()-1;
+				else if(selectedRow == -1)
+					selectedRow=0;
+				else
+					selectedRow--;
+				
+				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+			}
+		});
+		nextBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedRow ++;	
+				if (selectedRow==table.getRowCount()) 
+					selectedRow = 0;
+				else if(selectedRow<0)
+					selectedRow =0;
+				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+			}
+		});
+		
+		printinfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null, "Customer Management System 2020","INFO",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				selectedRow = table.getSelectedRow();
+				System.out.println("Selected Row : "+selectedRow);
+				DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				
+//				TableCellRenderer renderer = new MyTableCellRenderer();
+//				try {
+//					table.setDefaultRenderer(Class.forName("java.lang.Object"), renderer);
+//				} catch (ClassNotFoundException e1) {e1.printStackTrace();}
+		}});
+		
+		searchBtnCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+											
+				if ((searchtext.getText().length())==0) {
+					JOptionPane.showMessageDialog(null, "Plsase Write the Data of TextField","Error",JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if (nameRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 1))) 
+							selectedRow = i;
 					}
-				});
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
 				
-				open.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						OpenFileFunction.OpenFile(jFrame, table);
+				else if (jobRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 5))) 
+							selectedRow = i;
 					}
-				});
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
 				
-				close.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {System.exit(0);} });
-				
-			//Align Menu ActionListener
-				numberChkMenuItem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 0,  columnNameStr);
-						table.repaint();
+				else if (locationRadioBtn.isSelected()) {
+					CardLayout cl = (CardLayout)(card.getLayout());
+			        cl.next(card);
+					for(int i = 0; i<table.getRowCount(); i++){
+						if (searchtext.getText().equals(table.getValueAt(i, 8))) 
+							selectedRow = i;
 					}
-				});
-				
-				nameChkMenuItem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 1,  columnNameStr);
-						table.repaint();
-					}
-				});
-				
-				jobChkMenuItem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 5,  columnNameStr);
-						table.repaint();
-					}
-				});
-				
-				locationChkItem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 8,  columnNameStr);
-						table.repaint();
-					}
-				});		
-				
-			//HelpMenu ActionListener
-				printinfo.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {JOptionPane.showMessageDialog(null, "Customer Management System 2020","INFO",JOptionPane.INFORMATION_MESSAGE);}});
-				
-			//InputPanel ActionListener
-					jobComboBox.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent arg0) {jobTextField.setText(jobComboBox.getSelectedItem().toString());}
-					});
-		
-			//lower Button ActionListener
-				addBtn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								CreateFunction.CreateFunction(table, numberTextField, nameTextField, telTextField, emailTextField,  idNumberTextField, jobTextField);
-								jobComboBox.setSelectedIndex(0);
-							}
-						});
-						
-				deleteBtn.addActionListener(new RemoveFunction(table) {});
-		
-				previousBtn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								table.clearSelection();
-								if (selectedRow <= 0) 
-									selectedRow = table.getRowCount()-1;
-								else if(selectedRow == -1)
-									selectedRow=0;
-								else
-									selectedRow--;
-				
-								DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-							}
-						});
-		
-				nextBtn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								table.clearSelection();
-								selectedRow ++;	
-								if (selectedRow==table.getRowCount()) 
-									selectedRow = 0;
-								else if(selectedRow<0)
-									selectedRow =0;
-				
-								DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-								table.repaint();
-							}
-						});
-		
-				editBtn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								selectedRow = table.getSelectedRow();
-								EditFunction.UpdateData(table, nameTextField.getText(), telTextField.getText(), emailTextField.getText(), selectedRow);
-								numberTextField.setEnabled(true);
-								idNumberTextField.setEnabled(true);
-								nameTextField.setText("");
-								telTextField.setText("");
-								emailTextField.setText("");
-							}
-						});
-		
-				searchBtnBottom.addActionListener(new ActionListener() {// 하단의 검색 버튼 클릭시 input 카드 레이아웃에서 검색 카드 레이아웃으로 변환
-							public void actionPerformed(ActionEvent e) {
-								CardLayout cl = (CardLayout)(card.getLayout());
-								cl.next(card);
-							}
-						});
-				
-			//Search CardLayout Action Listener
-				searchBtnCard.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								selectedRow = -1;
-								if ((searchtext.getText().length())==0) {
-									JOptionPane.showMessageDialog(null, "Plsase Write the Data of TextField","Error",JOptionPane.ERROR_MESSAGE);
-								}
-								if (nameRadioBtn.isSelected()) {
-									for(int i = 0; i<table.getRowCount(); i++){
-										if (searchtext.getText().equals(table.getValueAt(i, 1))) 
-											selectedRow = i;
-									}
-									if (selectedRow ==-1) {
-										JOptionPane.showMessageDialog(null, "Value Not Found","404", JOptionPane.WARNING_MESSAGE);
-										return;
-									}
-									CardLayout cl = (CardLayout)(card.getLayout());
-									cl.next(card);
-									DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-								}
-				
-								else if (jobRadioBtn.isSelected()) {
-					
-									for(int i = 0; i<table.getRowCount(); i++){
-										if (searchtext.getText().equals(table.getValueAt(i, 5))) 
-											selectedRow = i;
-									}
-									if (selectedRow ==-1) {
-										JOptionPane.showMessageDialog(null, "Value Not Found","404", JOptionPane.WARNING_MESSAGE);
-										return;
-									}
-									CardLayout cl = (CardLayout)(card.getLayout());
-									cl.next(card);
-									DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-								}
-				
-								else if (locationRadioBtn.isSelected()) {
-					
-									for(int i = 0; i<table.getRowCount(); i++){
-										if (searchtext.getText().equals(table.getValueAt(i, 8))) 
-											selectedRow = i;
-									}
-									if (selectedRow ==-1) {
-										JOptionPane.showMessageDialog(null, "Value Not Found","404", JOptionPane.WARNING_MESSAGE);
-										return;
-									}
-									CardLayout cl = (CardLayout)(card.getLayout());
-									cl.next(card);
-									DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-								}
-								else {
-									JOptionPane.showMessageDialog(null, "Please Selected the Radio Data", "Warning", JOptionPane.WARNING_MESSAGE);
-									return;
-								}
-							}
-						});
-				exitBtn.addActionListener(new ActionListener() { // 검색 카드의 종료 버튼 클릭시 카드 레이아웃 전환
-							public void actionPerformed(ActionEvent e) {
-								CardLayout cl = (CardLayout)(card.getLayout());
-								cl.next(card);
-							}
-						});
-				
-			//table ActionListener
-					tablescrollpanel.addMouseListener(new MouseAdapter() { // Disable Selected Row
-						public void mousePressed(MouseEvent e) {
-							selectedRow = table.getSelectedRow(); 
-							table.clearSelection();
-							idNumberTextField.setEnabled(true);
-							numberTextField.setEnabled(true);
-							ageTextArea.setText("");
-							genderTextArea.setText("");
-							locationTextArea.setText("");
-							birthTextArea.setText("");
-						}
-					});
-					table.addMouseListener(new MouseAdapter() {
-						public void mousePressed(MouseEvent e) {
-							selectedRow = table.getSelectedRow();
-							DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
-						}
-					});
-		
+					DisplayUserInfo.DisplayUser(table, numberTextField, idNumberTextField, ageTextArea, genderTextArea, locationTextArea, birthTextArea, selectedRow);
+				}
+//				if (nameRadioBtn.isSelected()) {
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),1);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//				}
+//				else if (jobRadioBtn.isSelected()) { // 5
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),5);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//			}
+//				else if (locationRadioBtn.isSelected()) {// 8 
+//					renderer = new MyTableCellRenderer(table, searchtext.getText(),8);
+//					try {table.setDefaultRenderer(Object.class, renderer);} 		
+//					catch (Exception e1) {e1.printStackTrace();}
+//			}
+				else {
+					JOptionPane.showMessageDialog(null, "Please Selected the Radio Data", "Warning", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+			}
+		});
+}
+//		userdataVector.sort();
+	public void showTable() {
+		for (int i = 0; i < columnNameStr.length; i++) 
+			userdatatitle.add(columnNameStr[i]);
+			
+		model = new DefaultTableModel(userdataVector, userdatatitle); // Show Table
+		table = new JTable(userdataVector, userdatatitle); // Show Table
 	}
 }
 
