@@ -10,7 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class OpenFileFunction {
-	public static void OpenFile(JFrame frame, JTable table) {//use vector
+	public static void OpenFile(JFrame frame, JTable table, Vector<String> title) {//use vector
 		FileDialog openFile;
 		openFile = new FileDialog(frame, "OPEN", FileDialog.LOAD);
 	    openFile.setVisible(true); 
@@ -51,7 +51,6 @@ public class OpenFileFunction {
 						break;
 	        		j++;
 	        }
-
 	        buffread.close();
 	        String Filename = openFile.getFile();
 	        frame.setTitle(Filename);

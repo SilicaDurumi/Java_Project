@@ -18,6 +18,7 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.RowSorter;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -63,7 +64,6 @@ public class ManagementSystem extends JFrame {
 	private int selectedRow;
 	private DefaultTableModel model;
 	private JCheckBoxMenuItem numberChkMenuItem, nameChkMenuItem, jobChkMenuItem, locationChkItem;
-
 	/**
 	 * Launch the application.
 	 */
@@ -493,6 +493,12 @@ public class ManagementSystem extends JFrame {
 						}
 					});
 		
+	}
+	
+	public void SortFunction(int row) {
+		table.setAutoCreateRowSorter(true);
+		TableRowSorter tableRowSorter = new TableRowSorter(model);
+		table.setRowSorter(tableRowSorter);
 	}
 }
 
