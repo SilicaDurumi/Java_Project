@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 public class SaveFileFunction {
-	public static void saveFile(JFrame frame,JTable table) {
+	public static void saveFile(JFrame frame,JTable table ) {
 		
 		FileDialog saveFile;
 		saveFile = new FileDialog(frame, "SAVE", FileDialog.SAVE);
@@ -18,10 +18,11 @@ public class SaveFileFunction {
 	    
 	    try {
 	       BufferedWriter buffwrite = new BufferedWriter(new FileWriter(path));
-	       for (int i = 0; i < table.getModel().getRowCount(); i++) {
-	    	   for (int j = 0; j < table.getModel().getColumnCount(); j++)
-				 filename += table.getModel().getValueAt(i, j)+" ### ";   
-			filename += "\n";
+	       
+	       for (int j = 0; j < table.getModel().getRowCount(); j++) {
+	    	   for (int i = 0; i < table.getModel().getColumnCount(); i++) 
+	    		   filename += table.getModel().getValueAt(j,i)+" ### ";   
+	    	   filename += "\n";
 	       }
 	       
 	       buffwrite.write(filename); 
@@ -31,3 +32,26 @@ public class SaveFileFunction {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

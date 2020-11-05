@@ -2,38 +2,33 @@
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
 public class main extends JFrame{
-	
+
 	public main() {
-		
 		OUTTER : while(true) {
-			ImageIcon icon = new ImageIcon("images/Food.JPG");
 			
+			ImageIcon icon = new ImageIcon("images/Food.JPG");
 			JOptionPane.showMessageDialog(null, null,"Customer Management System", JOptionPane.NO_OPTION, icon);
 			
 			String passwd = JOptionPane.showInputDialog("CM Service\n Write PassWord");
-			
 			String password = "manage1234";
-			
+		
 			if (passwd == null)
 				break OUTTER;
-			 else if (password.equals(passwd)) {
+				else if (password.equals(passwd)) {
 					try {
-						ManagementSystem.manageSystemmain();	
-					} catch (Exception e) {
-							e.printStackTrace();
-					}
+						ManagementSystem.manageSystemMain();
+					} catch (Exception e) {e.printStackTrace();}
 				 break OUTTER;
 			}else
 				JOptionPane.showMessageDialog(null, "Wrong PassWord\n Click the Confirm Button", "Error", JOptionPane.ERROR_MESSAGE);
-			
 		}
-	}
+}
 
 	public static void main(String[] args) {
-		main authMainExample = new main();
+		main authExample = new main();
 	}
-
 }
 
 
