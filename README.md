@@ -1,13 +1,16 @@
 # Java_Project
 
-하단 버튼 - ADD, DELETE, PREVIOUS, NEXT, EDIT, SEARCH 기능구현
+실행법 : CLI 기준
 
-- ADD : 완성
-- DELETE : 완성
-- PREVIOUS : 완성
-- NEXT :  완성
-- EDIT : 완성
-- SEARCH : 완성
+윈도우
+
+1. cd ...\Java_Project\
+2. java main.java
+
+리눅스(우분투)
+
+1. cd .../Java_Project/
+2. 
 
 File 메뉴 - SAVA, OPEN, CLOSE 기능구현
 
@@ -20,3 +23,12 @@ Align 메뉴 - Number, Name, Job, Location
 
 Help 메뉴
 - 완성
+
+하단 버튼 - ADD, DELETE, PREVIOUS, NEXT, EDIT, SEARCH 기능구현
+
+- ADD : 완성
+- DELETE : 완성
+- PREVIOUS : 완성
+- NEXT :  완성
+- EDIT : 완성
+- SEARCH : 완성
