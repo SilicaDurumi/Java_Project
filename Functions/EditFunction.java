@@ -14,8 +14,17 @@ public class EditFunction {
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
-		model.setValueAt(name, selectedrow,1);
-		model.setValueAt(tel, selectedrow, 2);
-		model.setValueAt(email, selectedrow, 3);
+		boolean runThisFunction = RegexTextEx.EmailCheck(email)&&RegexTextEx.TelephoneNumCheck(tel);
+		
+		if (runThisFunction) {
+			model.setValueAt(name, selectedrow,1);
+			model.setValueAt(tel, selectedrow, 2);
+			model.setValueAt(email, selectedrow, 3);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Invalid value found, Please write again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);
+			table.clearSelection();
+			return;
+		}
 	}
 }

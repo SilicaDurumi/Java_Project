@@ -6,27 +6,35 @@ import java.io.FileReader;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class OpenFileFunction {
-	public static void OpenFile(JFrame frame, JTable table, Vector<String> title) {//use vector
+	public static void OpenFile(JFrame frame, JTable table) {//use vector
+		
 		FileDialog openFile;
 		openFile = new FileDialog(frame, "OPEN", FileDialog.LOAD);
-	    openFile.setVisible(true); 
+	    openFile.setVisible(true);
 	    
+	    DefaultTableModel model = (DefaultTableModel) table.getModel();
 	    String path = openFile.getDirectory()+ openFile.getFile();
+	    
+	    if (path.equals("nullnull")) {
+			JOptionPane.showMessageDialog(null, "Please Selecte the file","Warning",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+	    int removeRowCount = model.getRowCount();
+	    for (int i = 0; i < removeRowCount; i++) 
+			model.removeRow(0);
+	    
 	    try{
 	    	int count =0;
 	    	String strforcount ="";
 	    	String str = "";
 	    	Object[][] userdataInput ;
 	        BufferedReader buffread, reader;
-	        DefaultTableModel model = (DefaultTableModel) table.getModel();	      
 	        StringTokenizer stringTokenizer, tokenizer;
-	        
-	        for (int i = 0; i < model.getRowCount(); i++)
-	        	model.removeRow(i);
 	      
 	        reader = new BufferedReader(new FileReader(path));
 
@@ -51,6 +59,7 @@ public class OpenFileFunction {
 						break;
 	        		j++;
 	        }
+
 	        buffread.close();
 	        String Filename = openFile.getFile();
 	        frame.setTitle(Filename);

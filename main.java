@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class main extends JFrame{
-
+	
 	public main() {
 		OUTTER : while(true) {
 			

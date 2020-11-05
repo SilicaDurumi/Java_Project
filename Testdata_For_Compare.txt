@@ -1,0 +1,6 @@
+20 ### ABC ### TEL1 ### ABC@ABC.com ### TEST3 ### BCD ### 10 ### Male ### Seoul ### TEXT1 ### 
+30 ### BCD ### TEL2 ### BCD@BCD.com ### TEST3 ### ABC ### 11 ### Female ### Inchoen ### TEXT2 ### 
+40 ### CDE ### TEL3 ### CDE@CDE.com ### TEST3 ### FGH ### 12 ### Female ### Gangwon-Do ### TEXT3 ### 
+10 ### DEF ### TEL4 ### DEF@DEF.com ### TEST3 ### CDE ### 13 ### Male ### Daegu ### TEXT4 ### 
+60 ### EFG ### TEL5 ### EFG@EFG.com ### TEST3 ### EFG ### 14 ### Female ### Seojong ### TEXT5 ### 
+50 ### FGH ### TEL6 ### FGH@FGH.com ### TEST3 ### FGH ### 15 ### Male ### Gwangju ### TEXT6 ### 

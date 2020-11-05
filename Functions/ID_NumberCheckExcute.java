@@ -2,9 +2,6 @@ package Functions;
 
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.regex.Pattern;
-
-import javax.swing.JOptionPane;
 
 public class ID_NumberCheckExcute {
 	

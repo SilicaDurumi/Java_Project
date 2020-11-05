@@ -19,6 +19,7 @@ public class CreateFunction{
 		userdata[5] = Job;
 
 		boolean FLAG = false;// FLAG for user input all TextField
+		boolean runThisFunction;
 		String[] userinfo = new String[10] ;
 		
 		for (int i = 0; i < userinfo.length-4; i++) 
@@ -32,7 +33,11 @@ public class CreateFunction{
 			JOptionPane.showMessageDialog(null, "Please Write all information of the INPUT Field", "Error", JOptionPane.ERROR_MESSAGE );
 			return ;
 		}
-		if (ID_NumberCheckExcute.UserIdNumberCheck(userdata[4].getText())) {
+		
+		runThisFunction = ID_NumberCheckExcute.UserIdNumberCheck(userdata[4].getText())&&RegexTextEx.EmailCheck(userdata[3].getText())
+				&&RegexTextEx.TelephoneNumCheck(userdata[2].getText());
+		
+		if (runThisFunction) {
 			try {
 				userinfo[6] = ID_NumberCheckExcute.CheckNumberReturnAge(userinfo[4]);
 				userinfo[7] = ID_NumberCheckExcute.CheckNumberReturnGender(userinfo[4]);
@@ -50,7 +55,7 @@ public class CreateFunction{
 				userdata[0].requestFocus();
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Invalid IDNumber Value Please Write Again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Invalid value found, Please write again","Invalid IDNumer", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 	}

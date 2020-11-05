@@ -4,6 +4,7 @@ import java.awt.FileDialog;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 public class SaveFileFunction {
@@ -15,6 +16,11 @@ public class SaveFileFunction {
 	    
 	    String filename = "";
 	    String path = saveFile.getDirectory() + saveFile.getFile();
+	    
+	    if (path.equals("nullnull")) {// When User Pressed Cancel button of Popup menu
+			JOptionPane.showMessageDialog(null, "Canceled","Information",JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 	    
 	    try {
 	       BufferedWriter buffwrite = new BufferedWriter(new FileWriter(path));
@@ -28,6 +34,7 @@ public class SaveFileFunction {
 	       buffwrite.write(filename); 
 	       buffwrite.close();
 	       frame.setTitle(saveFile.getFile());
+	       saveFile = null;
 	    } catch (Exception e2) {System.out.println(e2.toString());}  
 	}
 	

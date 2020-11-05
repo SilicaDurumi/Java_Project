@@ -18,7 +18,6 @@ import java.awt.Color;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.RowSorter;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -38,12 +37,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBoxMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Comparator;
+import java.util.Vector;
 
 public class ManagementSystem extends JFrame {
 
 	private JFrame jFrame = new JFrame();
+	private Vector<String> columnNameVector = new Vector<String>(); 
 	private String[][] userdataArray = {}; //vector
-	private String [] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
+	private String[] columnNameStr = {"Number", "Name", "Tel", "E-mail", "ID_Number", "Job", "Age", "Gender", "Location","Birth"};
 	private JTable table;
 	private String[] job = {"", "ABC", "BCD", "CDE", "DEF", "EFG", "FGH" };
 	private JPanel contentPane, westpanel, inputpanel, card, personinfo, searchpanel, radiopanel, searchtextpanel, searchTextPanel, searchbtnpanel, btnpanel;
@@ -64,10 +66,12 @@ public class ManagementSystem extends JFrame {
 	private int selectedRow;
 	private DefaultTableModel model;
 	private JCheckBoxMenuItem numberChkMenuItem, nameChkMenuItem, jobChkMenuItem, locationChkItem;
+	private JMenu refreshMenu;
+	private JMenuItem refreshTableMenuItem;
+
 	/**
 	 * Launch the application.
 	 */
-	
 	public static void manageSystemMain() {
 		EventQueue.invokeLater(new Runnable() {
 			
@@ -95,8 +99,10 @@ public class ManagementSystem extends JFrame {
 		filemenu = new JMenu("File");
 		alignmenu = new JMenu("Align");
 		helpmenu = new JMenu("Help");
+		refreshMenu = new JMenu("Refresh");
 
-		menuBar.add(filemenu); menuBar.add(alignmenu); menuBar.add(helpmenu); //메뉴바에 표시될 요소 추가
+		menuBar.add(filemenu); menuBar.add(alignmenu); menuBar.add(helpmenu);menuBar.add(refreshMenu); //메뉴바에 표시될 요소 추가
+		
 		filemenu.add(save);filemenu.add(open); filemenu.add(close); //파일 메뉴 안에 표시될 요소들 '저장', '열기', '닫기'
 		
 		numberChkMenuItem = new JCheckBoxMenuItem("Number");// 정렬 메뉴의 Number 
@@ -115,7 +121,10 @@ public class ManagementSystem extends JFrame {
 		buttonGroupForAlignMenu.add(locationChkItem);
 		alignmenu.add(locationChkItem);
 		
-		helpmenu.add(printinfo);//help 메뉴의 printinfo
+		helpmenu.add(printinfo);
+		
+		refreshTableMenuItem = new JMenuItem("Refresh Table");
+		refreshMenu.add(refreshTableMenuItem);
 		
 		model = new DefaultTableModel(userdataArray, columnNameStr); // Show Table
 		table = new JTable(userdataArray, columnNameStr); // Show Table
@@ -319,35 +328,35 @@ public class ManagementSystem extends JFrame {
 			//Align Menu ActionListener
 				numberChkMenuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 0,  columnNameStr);
-						table.repaint();
+						SortFunction.Sort(model, 0, table);
 					}
 				});
 				
 				nameChkMenuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 1,  columnNameStr);
-						table.repaint();
+						SortFunction.Sort(model, 1, table);
 					}
 				});
 				
 				jobChkMenuItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 5,  columnNameStr);
-						table.repaint();
+						SortFunction.Sort(model, 5, table);
 					}
 				});
 				
 				locationChkItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						SortFunction.Sort(model, 8,  columnNameStr);
-						table.repaint();
+						SortFunction.Sort(model, 8, table);
 					}
 				});		
 				
 			//HelpMenu ActionListener
 				printinfo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {JOptionPane.showMessageDialog(null, "Customer Management System 2020","INFO",JOptionPane.INFORMATION_MESSAGE);}});
+				
+			//RefreshMenu ActionListener	
+				refreshTableMenuItem.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {table.repaint();}});
 				
 			//InputPanel ActionListener
 					jobComboBox.addActionListener(new ActionListener() {
@@ -495,12 +504,10 @@ public class ManagementSystem extends JFrame {
 					});
 		
 	}
-	
-	public void SortFunction(int row) {
-		table.setAutoCreateRowSorter(true);
-		TableRowSorter tableRowSorter = new TableRowSorter(model);
-		table.setRowSorter(tableRowSorter);
+	public void showTable() {
+		table = new JTable(model.getDataVector(), columnNameVector);
 	}
+
 }
 
 

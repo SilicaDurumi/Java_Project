@@ -1,24 +1,24 @@
 package Functions;
 
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.Vector;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 
 public class SortFunction  {
 
-	public static void Sort(DefaultTableModel model, int sortby, String [] identify) {
-		
-		Collections.sort(model.getDataVector(),  new Comparator<Object[]>() {
+	public static void Sort(DefaultTableModel model, int sortby, JTable table) {
+		model.getDataVector().sort(new Comparator<Vector<Object>>() {
 			@Override
-			public int compare(Object[] o1, Object[] o2) {
-				if (((Comparable)o1[sortby]).compareTo(o2[sortby])>0)
+			public int compare(Vector<Object> o1, Vector<Object> o2) {
+				if (((Comparable<Object>)o1.get(sortby)).compareTo(o2.get(sortby))>0)
 					return 1;
 				else
 					return -1;
 			}
 		});
+		table.repaint();
 	}
 	
 }
