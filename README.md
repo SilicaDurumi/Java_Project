@@ -6,11 +6,13 @@
 
 1. cd ...\Java_Project\
 2. java main.java
+3. 실행된 화면에서 Enter를 누르고 비밀번호 manage1234 입력후 사용
 
 리눅스(우분투)
 
 1. cd .../Java_Project/
-2. 
+2. java main.java
+3. 실행된 화면에서 Enter를 누르고 비밀번호 manage1234 입력후 사용
 
 File 메뉴 - SAVA, OPEN, CLOSE 기능구현
 
